@@ -1,7 +1,7 @@
 import streamlit as st
 
 from llm import load_llm, create_qa_chain
-from utils import get_text, store_data, load_data
+from utils import get_text, store_data, load_data, ask_question
 
 llm = load_llm()
 
@@ -23,5 +23,10 @@ if st.button("Confirm"):
         store_data(chunks=chunks, directory="data")
         retriever = load_data("data")
         qa_chain = create_qa_chain(llm=llm)
+        question = st.text_input("Ask a question: ")
+        if st.button("Get Answer"):
+            answer = ask_question(qa_chain=qa_chain, retriever=retriever, question=question)
+            st.write("Answer:")
+            st.write(answer)
     else:
         st.write("Did not receive any PDF!")

@@ -24,3 +24,16 @@ def load_data(directory, embeddings=embeddings):
     vectordb = Chroma(persist_directory=directory, embedding_function=embeddings)
     retriever = vectordb.as_retriever(search_kwargs={"k":7})
     return retriever
+
+def ask_question(qa_chain, retriever, question):
+    context = retriever.get_relevant_documents(question)
+    answer = (qa_chain(
+            {
+                "input_documents": context, 
+                "context": context,
+                "question": question
+            },
+            return_only_outputs=True
+        )
+    )['output_text']
+    return answer
