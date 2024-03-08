@@ -1,5 +1,9 @@
 import streamlit as st
-from utils import get_text, store_data
+
+from llm import load_llm, create_qa_chain
+from utils import get_text, store_data, load_data
+
+llm = load_llm()
 
 st.title("Research Paper QA Bot")
 
@@ -17,5 +21,7 @@ if st.button("Confirm"):
         else:
             chunks = get_text(pdf_link)
         store_data(chunks=chunks, directory="data")
+        retriever = load_data("data")
+        qa_chain = create_qa_chain(llm=llm)
     else:
         st.write("Did not receive any PDF!")
