@@ -26,6 +26,7 @@ if st.button("Confirm"):
         question = st.text_input("Ask a question: ")
         if st.button("Get Answer"):
             answer = ask_question(qa_chain=qa_chain, retriever=retriever, question=question)
+            print(answer)
             st.write("Answer:")
             st.write(answer)
     else:
