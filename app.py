@@ -25,8 +25,10 @@ if st.button("Confirm"):
         qa_chain = create_qa_chain(llm=llm)
         question = st.text_input("Ask a question: ")
         if st.button("Get Answer"):
+            print("Reached After Clicking the Button")
             answer = ask_question(qa_chain=qa_chain, retriever=retriever, question=question)
             print(answer)
+            print("Tried printing the answer")
             st.write("Answer:")
             st.write(answer)
     else:
