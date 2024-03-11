@@ -20,9 +20,13 @@ if st.button("Confirm"):
             chunks = get_text("temp.pdf")
         else:
             chunks = get_text(pdf_link)
+        print("Started Storing Data\n")
         store_data(chunks=chunks, directory="data")
+        print("Successfully stored Data\n\nStarted Retrieving Data\n")
         retriever = load_data("data")
+        print("Successfully Retrieved Data\nStarted Creating a QA Chain\n")
         qa_chain = create_qa_chain(llm=llm)
+        print("Successfully Created a QA Chain\n")
         question = st.text_input("Ask a question: ")
         if st.button("Get Answer"):
             print("Reached After Clicking the Button")
