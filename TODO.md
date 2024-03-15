@@ -1,4 +1,5 @@
-Need to try using CPU due to GPU Bottleneck
-Find ways to optimize GPU Usage
-
-Try Debugging using print statements
+* [X] Need to try using CPU due to GPU Bottleneck
+* [X] Find ways to optimize GPU Usage
+* [X] Try Debugging using print statements
+* [ ] Add README Files
+* [ ] Add additional features to the Application

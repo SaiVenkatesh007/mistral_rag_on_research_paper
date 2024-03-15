@@ -5,6 +5,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndB
 from langchain.prompts import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain
 
+
+"""
+------------------- Default Variables -------------------
+"""
 model_kwargs = {'device': 'cuda'}
 embeddings = HuggingFaceEmbeddings(model_kwargs=model_kwargs)
 
@@ -22,8 +26,15 @@ If questions is completley unrelated to the document then return 'Not Enough Inf
 {context}
 
 ### Question: {question} [/INST]"""
+"""
+------------------- Default Variables -------------------
+"""
 
 
+"""
+--------------------- LLM Functions ---------------------
+"""
+#? Function -> Loads the model mentioned with the given quantization config
 def load_llm(model_name=model_name, quantization_config=quantization_config):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name, device_map='cuda', quantization_config=quantization_config)
@@ -32,9 +43,13 @@ def load_llm(model_name=model_name, quantization_config=quantization_config):
     llm = HuggingFacePipeline(pipeline=pipe)
     return llm
 
+#? Function -> Create/Load a QA Chain with the given prompt template
 def create_qa_chain(llm, prompt_template=qna_prompt_template):
     PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
     )
     qa_chain = load_qa_chain(llm, chain_type="stuff", prompt=PROMPT)
     return qa_chain
+"""
+--------------------- LLM Functions ---------------------
+"""
